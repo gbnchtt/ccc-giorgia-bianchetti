@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+body {
+  background-color: transparent;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 8px;
+  -webkit-app-region: drag;
+  user-select: none;
+  
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.line-wrap {
+  position: relative;
+  height: 5.4rem; /* Altezza per contenere il testo (line-height 0.9 * 6rem) */
+  width: 100%;
+  overflow: visible; /* Permetto overflow per mantenere allineamento */
+}
+
+/* Pseudo-elemento per creare un riferimento di allineamento invisibile */
+.line-wrap::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: transparent;
+  pointer-events: none;
+}
+
+.line-text {
+  font-size: 6rem;
+  font-variation-settings: "wght" 100;
+  font-feature-settings: "tnum" 1; /* Tabular numbers - spaziatura fissa per numeri */
+  letter-spacing: 0.03rem;
+  line-height: 0.9;
+  transition: none;
+  cursor: pointer;
+  position: absolute;
+  left: 8px;
+  top: 0;
+  -webkit-app-region: no-drag;
+  white-space: nowrap;
+  text-indent: 0; /* Rimuovo l'indent generico */
+  transform: translateZ(0); /* Forza l'accelerazione hardware */
+  text-align: left;
+  display: inline-block;
+  vertical-align: top;
+}
+
+/* Aggiustamenti specifici per allineamento perfetto */
+#hours {
+  left: 8px;
+  transform-origin: left center;
+  /* H ha caratteristiche più stabili */
+}
+
+#minutes {
+  left: 6px; /* Compenso base per M che è naturalmente più larga */
+  transform-origin: left center;
+}
+
+#seconds {
+  left: 7px; /* Compenso intermedio per S */
+  transform-origin: left center;
+}
+
+/* Stabilizzazione per evitare spostamenti durante i cambi di peso */
+.line-wrap {
+  /* Forza il contenitore a mantenere la posizione */
+  contain: layout style;
+}
+
+.line-text {
+  /* Stabilizza il rendering del testo */
+  will-change: font-variation-settings, opacity;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tooltip personalizzato */
+.tooltip {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 400;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.tooltip.show {
+  opacity: 1;
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Giorgia Bianchetti - widget coppia</title>
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body id="widgetBody"> 
+      
+        <div id="emotionButtons" class="emotion-container">
+            <button class="emotion-button">happy</button>
+            <button class="emotion-button">sad</button>
+            <button class="emotion-button">anxious</button>
+            <button class="emotion-button">calm</button>
+            <button class="emotion-button">angry</button>
+            <button class="emotion-button">hungry</button>
+        </div>
+        <div id="cerchio"></div>
+        <p id="feelingText" class="testo-principale">Today Arianna is feeling <span>...</span></p> 
+        <div id="previewToggle" class="preview-box">
+            <div class="preview-circle"></div>
+        </div>
+        
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="render.js"></script>
+    <script src="db.js"></script>
+
+  </body>
+
+</html>

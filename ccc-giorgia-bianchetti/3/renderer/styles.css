@@ -1,0 +1,386 @@
+html,
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  margin: 0;
+  overflow: hidden;
+}
+
+#widgetBody {
+    background: black; 
+}
+
+/* modalità negativa */
+#widgetBody.negative {
+    background: white !important;
+    color: black !important;
+}
+.negative .testo-principale {
+    color: black !important;
+}
+.negative #cerchio {
+    background-color: black !important;
+}
+
+
+/* anteprima */
+.preview-box {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 40px;
+    height: 25px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.preview-circle {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: rgb(0, 0, 0);
+}
+
+/* anteprima negativo */
+.negative .preview-box {
+    background-color: rgb(0, 0, 0);
+}
+
+.negative .preview-circle {
+    background-color: rgb(255, 255, 255);
+}
+
+.testo-principale {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  color: white;
+  position: fixed;
+  justify-content: center;
+  top: 8px;     
+  left: 50%; 
+  transform: translate(-50%, 0);
+  white-space: nowrap;
+  text-align: center;
+}
+
+#cerchio {
+  position: fixed;
+  top: 50%;      
+  left: 50%;      
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+/* container emozioni */
+.emotion-container {
+    position: fixed;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 1000;
+}
+
+/* emozioni mostrate solo in modalità negativa */
+#widgetBody.negative .emotion-container {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* bottoni emozioni */
+.emotion-button {
+    background: none;
+    border: 1px solid black;
+    border-radius: 10px;
+    color: black;
+    font-size: 10px;
+    cursor: pointer;
+    padding: 2px 5px;
+    margin: 2px;
+    text-transform: lowercase;
+    transition: color 0.2s;
+}
+
+.emotion-button:hover {
+    text-decoration: underline;
+}
+
+
+/* keyframes animazioni emozioni */
+@keyframes happy-movement {
+    0% {
+        transform: translate(-50%, -50%);
+    }
+    50% {
+        transform: translate(-50%, -65%);
+    }
+    100% {
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes sad-movement {
+    0% {
+        transform: translate(-50%, -50%); 
+        opacity: 1;
+    }
+    50% {
+        transform: translate(-80%, -30%);
+        opacity: 0.6;
+    }
+    100% {
+        transform: translate(30%, 10%);
+        opacity: 0.3;
+    }
+}
+
+@keyframes anxious-movement {
+    
+    0%, 100% {
+        transform: translate(-50%, -50%);
+        width: 90px;
+        height: 90px;
+    }
+    
+    5% {
+        transform: translate(-25%, -20%);
+        width: 92px;
+    }
+    15% {
+        transform: translate(-75%, -80%);
+        
+        height: 88px;
+    }
+    25% {
+        transform: translate(-50%, -10%);
+       
+    }
+    35% {
+        transform: translate(-85%, -45%);
+        width: 90px;
+    }
+    45% {
+        transform: translate(-15%, -65%);
+        
+    }
+    55% {
+        transform: translate(-55%, -85%);
+        height: 93px;
+    }
+    65% {
+        transform: translate(-40%, -20%);
+        width: 87px;
+    }
+    75% {
+        transform: translate(-80%, -50%);
+        
+    }
+    85% {
+        transform: translate(-20%, -50%);
+    }
+    95% {
+        transform: translate(-60%, -70%); 
+        
+    }
+}
+
+@keyframes calm-movement {
+    0% {
+        transform: translate(-50%, -50%); 
+    }
+    50% {
+        transform: translate(-80%, -50%);
+    }
+    100% {
+        transform: translate(20%, -50%); 
+    }
+}
+
+@keyframes angry-movement {
+
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    10% {
+        transform: translate(-60%, -60%) scale(0.95);
+    }
+    20% {
+        transform: translate(-40%, -40%) scale(1.05);
+    }
+    30% {
+        transform: translate(-55%, -45%); 
+    }
+    40% {
+        transform: translate(-45%, -55%);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    60% {
+        transform: translate(-40%, -60%) scale(0.97);
+    }
+    70% {
+        transform: translate(-60%, -40%) scale(1.03);
+        
+    }
+    80% {
+        transform: translate(-50%, -50%);
+    }
+    90% {
+        transform: translate(-58%, -53%);
+
+    }
+}
+
+@keyframes hungry-movement {
+
+    0% { 
+        transform: translate(-50%, -50%); 
+        background-color: transparent;
+        border: 2px solid white
+    }
+    
+    5% { 
+        transform: translate(-48%, -51%); 
+        background-color: transparent;
+        border: 2px solid white;
+    } 
+    10% { 
+        transform: translate(-46%, -52.5%); 
+        background-color: transparent;
+        border: 2px solid white;
+    }
+    15% { 
+        transform: translate(-45%, -54%); 
+        background-color: transparent;
+        border: 2px solid white;
+    }
+    20% { 
+        transform: translate(-46%, -55%); 
+        background-color: transparent;
+        border: 2px solid white;
+    }
+    25% { 
+        transform: translate(-47.5%, -55.5%); 
+        background-color: transparent;
+        border: 2px solid white;
+    }
+
+    30% { 
+        transform: translate(-50%, -56%); 
+        background-color: transparent;
+        border: 2px solid white;
+    }
+    35% { 
+        transform: translate(-52.5%, -55.5%); 
+        background-color: transparent;
+        border: 2px solid white;
+    }
+    40% { 
+        transform: translate(-54%, -54%); 
+        background-color: transparent;
+        border: 2px solid white;
+    }
+    45% { 
+        transform: translate(-54.5%, -52.5%); 
+        background-color: transparent;
+        border: 2px solid white;
+    }
+    50% { 
+        transform: translate(-55%, -50%); 
+        background-color: transparent;
+        border: 2px solid white;
+    }
+
+    55% { 
+        transform: translate(-54.5%, -47.5%); 
+        background-color: transparent;
+        border: 2px solid white;
+    }
+    60% { 
+        transform: translate(-53%, -46%); 
+        background-color: transparent;
+        border: 2px solid white;
+    }
+    65% { 
+        transform: translate(-51.5%, -45%); 
+        background-color: transparent;
+        border: 2px solid white;
+    }
+    70% { 
+        transform: translate(-50%, -44.5%); 
+        background-color: transparent;
+        border: 2px solid white;
+    }
+    75% { 
+        transform: translate(-47.5%, -45%); 
+        background-color: transparent;
+        border: 2px solid white;
+    }
+
+    80% { 
+        transform: translate(-46%, -46%); 
+        background-color: transparent;
+        border: 2px solid white;
+    }
+    85% { 
+        transform: translate(-45%, -47.5%); 
+        background-color: transparent;
+        border: 2px solid white;
+    }
+    90% { 
+        transform: translate(-45.5%, -49%); 
+        background-color: transparent;
+        border: 2px solid white;
+    }
+    95% { 
+        transform: translate(-47%, -49.5%); 
+        background-color: transparent;
+        border: 2px solid white;
+    }
+    
+    100% { 
+        transform: translate(-50%, -50%); 
+        background-color: transparent;
+        border: 2px solid white;
+    }
+}
+
+/* emozioni animazione */
+
+.is-happy {
+    animation: happy-movement 0.5s ease-in-out infinite;
+}
+
+.is-sad {
+    animation: sad-movement 10s ease-in-out infinite alternate; 
+}
+
+.is-anxious {
+    animation: anxious-movement 2s ease-in infinite ; 
+}
+
+.is-calm {
+    animation: calm-movement 8s ease-in-out infinite alternate; 
+}
+
+.is-angry {
+    animation: angry-movement 1s step-start infinite; 
+}
+
+.is-hungry {
+    animation: hungry-movement 2.5s ease-in-out infinite; 
+}
+

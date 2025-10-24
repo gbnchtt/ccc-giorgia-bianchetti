@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>CC</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+   <div id="circle-container">
+ <div class="circle circle_battery"></div>
+<div class="circle circle_mouse"></div>
+<div class="circle circle_ram"></div>
+<div class="circle circle_cpu"></div>
+<div class="circle circle_uptime"></div>
+<div class="circle circle_cpu_thermometer"></div>
+</div>
+<div class="row">
+  <div class="col-1">
+    <div class="shape" id="shape_battery"></div>
+    <div class="shape" id="shape_mouse"></div>
+    <div class="shape" id="shape_ram"></div>
+    <div class="shape" id="shape_cpu"></div>
+    <div class="shape" id="shape_uptime"></div>
+    <div class="shape" id="shape_cpu_thermometer"></div>
+   </div>
+      <div class="col-2">
+        <div class="stat">Battery: <span id="battery">...</span>%</div>
+        <div class="stat">
+          Mouse Position: <span id="mouse-coords">--</span>
+        </div>
+        <div class="stat">RAM Usage: <span id="ram">...</span>%</div>
+        <div class="stat">CPU Load: <span id="cpu">...</span>%</div>
+        <div class="stat">Uptime: <span id="uptime">00:00:00</span></div>
+        <div class="stat">
+          CPU Thermometer: <span id="cpu-thermometer-label">0%</span>
+        </div>
+      </div>
+
+
+    <script src="render.js"></script>
+  </body>
+</html>
