@@ -93,7 +93,7 @@ setInterval(updateStats, 500);
 updateStats();
 
 // ========================================
-// 🎭 GESTIONE EMOZIONI E SINCRONIZZAZIONE
+// GESTIONE EMOZIONI E SINCRONIZZAZIONE
 // ========================================
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -106,20 +106,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Seleziona i bottoni emozione
     const emotionButtons = document.querySelectorAll('#emotionButtons .emotion-button');
     
-    // 🔹 STATO: false = modalità positiva (vedo Arianna), true = modalità negativa (vedo me stessa)
+    // STATO: false = modalità positiva (vedo Arianna), true = modalità negativa (vedo me stessa)
     let isPersonalMode = false; 
     
-    // 🔹 Variabile per l'emozione dell'amico (ricevuta dal database)
+    // Variabile per l'emozione dell'amico (ricevuta dal database)
     let friendCurrentEmotion = null;
     
-    // 🔹 Variabile per la MIA emozione personale
+    // Variabile per la MIA emozione personale
     let myCurrentEmotion = null;
 
-    // 🔋 Variabili per le batterie REALI
+    // Variabili per le batterie REALI
     let myBatteryPercent = 100; // ID 8 (TU) - collegato alla TUA batteria reale
     let friendBatteryPercent = 100; // ID 5 (Arianna) - collegato alla batteria reale di Arianna
 
-    // 🔹 Funzione per calcolare la dimensione del cerchio in base alla batteria
+    // Funzione per calcolare la dimensione del cerchio in base alla batteria
     function calculateCircleSize(batteryPercent) {
         // Mappa la batteria da 0-100% a 20-90px (dimensione minima 20px, massima 90px)
         const minSize = 20;
@@ -128,10 +128,10 @@ document.addEventListener('DOMContentLoaded', function() {
         return Math.round(size);
     }
 
-    // 🔹 Funzione per aggiornare la dimensione del cerchio
+    // Funzione per aggiornare la dimensione del cerchio
     function updateCircleSize() {
         if (!cerchio) {
-            console.error("🔋 ERRORE: Elemento cerchio non trovato!");
+            console.error("ERRORE: Elemento cerchio non trovato!");
             return;
         }
         
@@ -152,10 +152,10 @@ document.addEventListener('DOMContentLoaded', function() {
         cerchio.style.setProperty('width', size + 'px', 'important');
         cerchio.style.setProperty('height', size + 'px', 'important');
         
-        console.log(`🔋 ${isPersonalMode ? 'TUA' : 'ARIANNA'} batteria: ${batteryToUse}% → ${size}px`);
+        console.log(`${isPersonalMode ? 'TUA' : 'ARIANNA'} batteria: ${batteryToUse}% → ${size}px`);
     }
 
-    // 🔹 Fermare tutte le emozioni attive sul cerchio
+    // Fermare tutte le emozioni attive sul cerchio
     function stopAllAnimations() {
         if (cerchio) {
             cerchio.classList.remove('is-happy', 'is-sad', 'is-anxious', 
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 🔹 Applicare un'emozione al cerchio
+    // Applicare un'emozione al cerchio
     function applyEmotion(emotion) {
         if (!cerchio || !emotion) return;
         
@@ -186,10 +186,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const emotionClass = 'is-' + emotion;
         cerchio.classList.add(emotionClass);
         
-        console.log(`🎭 Animazione applicata: ${emotion}`);
+        console.log(`Animazione applicata: ${emotion}`);
     }
 
-    // 🔹 Aggiornare il testo principale con l'emozione
+    // Aggiornare il testo principale con l'emozione
     function updateFeelingText(emotion) {
         const feelingSpan = feelingText.querySelector('span');
         if (feelingSpan && emotion) {
@@ -197,13 +197,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 🔹 LOGICA DEL CAMBIO TEMA (Toggle tra modalità positiva e negativa)
+    // LOGICA DEL CAMBIO TEMA (Toggle tra modalità positiva e negativa)
     if (toggleButton && widgetBody && feelingText) {
         toggleButton.addEventListener('click', function() {
             isPersonalMode = !isPersonalMode;
             widgetBody.classList.toggle('negative');
             
-            // 🎯 REGOLA 1: Modalità POSITIVA (sfondo bianco) → Mostra emozione di Arianna
+            // REGOLA 1: Modalità POSITIVA (sfondo bianco) → Mostra emozione di Arianna
             if (!isPersonalMode) {
                 feelingText.textContent = "Today Arianna is feeling ";
                 // Aggiungi lo span per l'emozione
@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     span.textContent = "...";
                 }
             } 
-            // 🎯 REGOLA 2: Modalità NEGATIVA (sfondo nero) → Mostra SOLO la mia emozione
+            // REGOLA 2: Modalità NEGATIVA (sfondo nero) → Mostra SOLO la mia emozione
             else {
                 feelingText.textContent = "Today I'm feeling ";
                 // Aggiungi lo span per l'emozione
@@ -241,19 +241,19 @@ document.addEventListener('DOMContentLoaded', function() {
             // 🔋 CRITICO: Aggiorna la dimensione del cerchio dopo il cambio modalità
             updateCircleSize();
             
-            console.log(`🔄 Toggle modalità: ${isPersonalMode ? 'PERSONALE (io)' : 'POSITIVA (Giorgia)'}`);
-            console.log(`🔋 Batterie attuali - Mia: ${myBatteryPercent}%, Giorgia: ${friendBatteryPercent}%`);
+            console.log(`Toggle modalità: ${isPersonalMode ? 'PERSONALE (io)' : 'POSITIVA (Giorgia)'}`);
+            console.log(`Batterie attuali - Mia: ${myBatteryPercent}%, Giorgia: ${friendBatteryPercent}%`);
         });
     }
 
-    // 🔹 LOGICA EMOZIONI - Click sui bottoni (SOLO in modalità personale/negativa)
+    // LOGICA EMOZIONI - Click sui bottoni (SOLO in modalità personale/negativa)
     emotionButtons.forEach(button => {
         button.addEventListener('click', function() {
             // I bottoni sono visibili solo in modalità personale (negative/sfondo nero)
             if (widgetBody.classList.contains('negative')) { 
                 const emotion = button.textContent.trim();
                 
-                // 🎯 Salva la MIA emozione
+                // Salva la MIA emozione
                 myCurrentEmotion = emotion;
                 
                 // Applica l'animazione localmente (solo nel MIO widget negativo)
@@ -262,41 +262,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Aggiorna il testo con la mia emozione selezionata
                 updateFeelingText(emotion);
                 
-                // 📡 SINCRONIZZAZIONE: Invia l'emozione al database per Giorgia
+                // SINCRONIZZAZIONE: Invia l'emozione al database per Giorgia
                 window.dispatchEvent(new CustomEvent("emotionUpdate", { 
                     detail: { emotion: emotion } 
                 }));
                 
-                console.log(`📤 La mia emozione inviata: ${emotion}`);
+                console.log(`La mia emozione inviata: ${emotion}`);
             }
         });
     });
 
-    // 📥 RICEZIONE EMOZIONE DA GIORGIA
+    // RICEZIONE EMOZIONE DA GIORGIA
     window.addEventListener("friendEmotionUpdate", (e) => {
         friendCurrentEmotion = e.detail.emotion;
         
-        console.log(`📥 Emozione ricevuta da Giorgia: ${friendCurrentEmotion}`);
+        console.log(`Emozione ricevuta da Giorgia: ${friendCurrentEmotion}`);
         
-        // 🎯 Applica l'emozione di Giorgia SOLO se sono in modalità POSITIVA
+        // Applica l'emozione di Giorgia SOLO se sono in modalità POSITIVA
         if (!isPersonalMode && friendCurrentEmotion) {
             applyEmotion(friendCurrentEmotion);
             updateFeelingText(friendCurrentEmotion);
         }
     });
     
-    // 🔋 LISTENER PER AGGIORNAMENTI BATTERIA
+    // LISTENER PER AGGIORNAMENTI BATTERIA
     
     // Aggiornamento della MIA batteria reale
     let batteryUpdateCount = 0;
     window.addEventListener("batteryUpdate", (e) => {
         batteryUpdateCount++;
-        // 🔧 FIX: Non convertire 0% in 100%! Usa ?? invece di ||
+        // FIX: Non convertire 0% in 100%! Usa ?? invece di ||
         const batteryValue = e.detail.percent ?? 100;
         myBatteryPercent = batteryValue;
         // Log solo se il valore è cambiato significativamente
         if (batteryUpdateCount % 10 === 1) {
-            console.log(`🔋 Batteria aggiornata: ${batteryValue}%`);
+            console.log(`Batteria aggiornata: ${batteryValue}%`);
         }
         updateCircleSize(); // Aggiorna SEMPRE, indipendentemente dalla modalità
     });
@@ -305,19 +305,19 @@ document.addEventListener('DOMContentLoaded', function() {
     let friendBatteryUpdateCount = 0;
     window.addEventListener("friendBatteryUpdate", (e) => {
         friendBatteryUpdateCount++;
-        // 🔧 FIX: Non convertire 0% in 100%! Usa ?? invece di ||  
+        // FIX: Non convertire 0% in 100%! Usa ?? invece di ||  
         const ariannaBattery = e.detail.battery ?? 100;
         friendBatteryPercent = ariannaBattery;
         // Log solo occasionalmente per non intasare
         if (friendBatteryUpdateCount % 20 === 1) {
-            console.log(`🔋 Batteria Arianna aggiornata: ${ariannaBattery}%`);
+            console.log(`Batteria Arianna aggiornata: ${ariannaBattery}%`);
         }
         updateCircleSize(); // Aggiorna SEMPRE, indipendentemente dalla modalità
     });
     
     //  TEST IMMEDIATO per verificare il funzionamento
-    console.log("🚨 === TEST BATTERIE ===");
-    console.log(`🔋 Prima del test: TUA=${myBatteryPercent}%, ARIANNA=${friendBatteryPercent}%`);
+    console.log("=== TEST BATTERIE ===");
+    console.log(`Prima del test: TUA=${myBatteryPercent}%, ARIANNA=${friendBatteryPercent}%`);
     
     // FORZO valori MOLTO diversi per 10 secondi
     const originalMy = myBatteryPercent;

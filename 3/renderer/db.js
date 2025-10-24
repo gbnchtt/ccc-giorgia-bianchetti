@@ -1,6 +1,6 @@
 (function () {
-  let yourID = 8; // ID di Giorgia (TU)
-  let friendID = 5; // ID di Arianna (AMICA)
+  let yourID = 8; // ID di Giorgia 
+  let friendID = 5; // ID di Arianna 
   let table = "students";
 
   // Variabili personali
@@ -9,7 +9,7 @@
   let personalRam = 0;
   let personalUptime = 0;
   let personalMouse = { x: 0, y: 0 };
-  let personalEmotion = null; // 🎭 Emozione personale (inizia vuota)
+  let personalEmotion = null; // Emozione personale 
 
   // Variabili amico
   let friendBattery = 0;
@@ -17,7 +17,7 @@
   let friendRam = 0;
   let friendUptime = 0;
   let friendMouse = { x: 0, y: 0 };
-  let friendEmotion = null; // 🎭 Emozione dell'amico (inizia vuota)
+  let friendEmotion = null; // Emozione dell'amico 
 
   // Event listeners per dati personali
   window.addEventListener("batteryUpdate", (e) => {
@@ -55,7 +55,7 @@
 
   let channel;
 
-  // 📤 Funzione per inviare i propri dati (inclusa l'emozione)
+  // Funzione per inviare i propri dati
   async function saveData() {
     const input = {
       id: yourID,
@@ -65,14 +65,14 @@
         ram: personalRam,
         uptime: personalUptime,
         mouse: personalMouse,
-        emotion: personalEmotion, // 🎭 Invia l'emozione (può essere null all'inizio)
+        emotion: personalEmotion, // Invia l'emozione 
         heartbeat: Date.now(),
       },
       updated_at: new Date(),
     };
 
-    // 🚨 LOG: Cosa invii al database
-    console.log(`🚨 INVIO AL DATABASE: TUA batteria=${personalBattery}%, cpu=${personalCpuLoad}%`);
+    //LOG: Cosa invii al database
+    console.log(`INVIO AL DATABASE: TUA batteria=${personalBattery}%, cpu=${personalCpuLoad}%`);
 
     const { error } = await supabase.from(table).upsert([input]);
     if (error) {
@@ -82,7 +82,7 @@
     }
   }
 
-  // 📥 Funzione per gestire il canale Realtime
+  // Funzione per gestire il canale Realtime
   function subscribeRealtime() {
     if (channel) {
       console.warn("Removing old channel before re-subscribing...");
@@ -97,7 +97,7 @@
         (payload) => {
           const data = payload.new;
           
-          // 🎭 SINCRONIZZAZIONE: Controlla se l'aggiornamento è dall'amico
+          // SINCRONIZZAZIONE: Controlla se l'aggiornamento è dall'amico
           if (data.id === friendID) {
             friendBattery = data.data.battery;
             friendCpuLoad = data.data.cpuLoad;
@@ -106,24 +106,23 @@
             friendMouse = data.data.mouse;
             
             //  LOG: Cosa arriva dal database di Arianna
-            console.log(`🚨 DATABASE Arianna: batteria=${friendBattery}%, cpu=${friendCpuLoad}%`);
-            console.log(`🚨 DATI COMPLETI Arianna:`, data.data);
+            console.log(`DATABASE Arianna: batteria=${friendBattery}%, cpu=${friendCpuLoad}%`);
+            console.log(`DATI COMPLETI Arianna:`, data.data);
             
             // 🔋 Invia aggiornamento batteria dell'amica a render.js
             window.dispatchEvent(new CustomEvent("friendBatteryUpdate", { 
               detail: { battery: friendBattery } 
             }));
             
-            // 🎭 Ricevi l'emozione dell'amico dal database
+            // Ricevi l'emozione dell'amico dal database
             const newFriendEmotion = data.data.emotion;
             
-            // 🎯 IMPORTANTE: Notifica SOLO se l'emozione è cambiata E non è null
+           
             if (newFriendEmotion && newFriendEmotion !== friendEmotion) {
               friendEmotion = newFriendEmotion;
               
-              console.log(`📥 Emozione ricevuta dall'amico (${friendID}): ${friendEmotion}`);
-              
-              // 📡 Invia evento a render.js per applicare l'animazione
+              console.log(`Emozione ricevuta dall'amico (${friendID}): ${friendEmotion}`);
+             
               window.dispatchEvent(new CustomEvent("friendEmotionUpdate", { 
                 detail: { emotion: friendEmotion } 
               }));
@@ -158,7 +157,7 @@
   }
 
   // Inizializza tutto
-  resetEmotionOnStart(); // 🎯 Reset all'avvio
+  resetEmotionOnStart(); // Reset all'avvio
   subscribeRealtime();
 
   // Ping periodico per tenere vivo il canale

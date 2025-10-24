@@ -165,7 +165,7 @@ textElements.forEach(element => {
         // Nasconde il tooltip durante il trascinamento
         tooltip.classList.remove('show');
         
-        // Calcola la nuova posizione
+    
         window.API.getMousePosition().then(mousePos => {
           const newX = mousePos.x - (initialMouseX - startX);
           const newY = mousePos.y - (initialMouseY - startY);
