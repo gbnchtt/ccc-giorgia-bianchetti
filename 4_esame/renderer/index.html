@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>CC</title>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="wrap">
+    <div id="friend"></div>
+    <div id="you"></div>
+  </div>
+  <div class="wrap-absolute">
+    <!-- <div id="you-name">You: <span id="you-coords">...</span></div>
+    <div id="friend-name">Friend: <span id="friend-coords">...</span></div> -->
+  </div>
+
+  <div id="time" class="time">00:00:00</div>
+  <div class="stat">Battery: <span id="batteria">...</span>%</div>
+  <div class="stat">CPU Load: <span id="cpu">...</span>%</div>
+  <div class="stat">RAM Usage: <span id="ram">...</span>%</div>
+  <div class="stat">Mouse Position: <span id="mouse-coords">--</span></div>
+
+  
+  <div class="stat"><span id="uptime"></span></div>
+
+  <div class="stat">
+  <br />
+    <span id="cpu-thermometer-label"></span>
+  </div>
+
+  <!-- Chat Interface -->
+  <div class="chat-container">
+    <input type="checkbox" id="audioEnabled" checked style="display: none;">
+
+    <!-- SVG Assets sovrapposti al centro -->
+    <div class="svg-container">
+      <img src="../assets/SVG/raggio_1.svg" class="svg-asset" alt="Raggio 1">
+      <img src="../assets/SVG/raggio_2.svg" class="svg-asset" alt="Raggio 2">
+      <img src="../assets/SVG/raggio_3.svg" class="svg-asset" alt="Raggio 3">
+      <img src="../assets/SVG/raggio_4.svg" class="svg-asset" alt="Raggio 4" style="display: none;">
+    </div>
+
+    <div class="message-input-container">
+      <input type="text" id="messageInput" placeholder="" />
+    </div>
+    <div id="messagesContainer" class="messages-container">
+      <!-- I messaggi non appariranno più qui - solo comunicazione vocale -->
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="ai.js"></script>
+  <script src="render.js"></script>
+  <script src="db.js"></script>
+</body>
+
+</html>

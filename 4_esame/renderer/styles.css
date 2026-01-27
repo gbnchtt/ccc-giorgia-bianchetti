@@ -1,0 +1,129 @@
+:root {
+  --bg: blue;
+  --grid-bg: #16181d;
+  --cell: rgb(255, 255, 255, 0.4);
+  --cell-filled: white;
+  --cell-hover: rgb(255, 0, 0);
+  --gap: 2px;
+  --cell-size: 4px;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  font-weight: 400;
+  color: white;
+  -webkit-app-region: drag;
+ 
+  
+  /* PUNTO 1 & 2: Blocca selezione testo e scroll della rotellina */
+  overflow: hidden; 
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.stat, .time, .wrap {
+  display: none; 
+}
+
+/* Chat Interface Styles */
+.chat-container {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  left: 5px;
+  bottom: 5px;
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  -webkit-app-region: no-drag;
+}
+
+/* SVG Assets Container */
+.svg-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;
+  height: 150px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.svg-asset {
+position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Mantiene il centro */
+  width: 130%; 
+  height: 130%;
+  transform-origin: center center; /* Fondamentale per i 4px di spessore */
+  transition: none; /* La transizione è gestita da requestAnimationFrame */
+}
+
+.messages-container {
+  flex: 1;
+  padding: 6px;
+  padding-bottom: 40px;
+  overflow: hidden; /* Rimosso scroll visibile */
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.message-input-container {
+  display: none; 
+  padding: 6px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  pointer-events: auto;
+  /* Rimosso il bordo superiore per pulizia totale */
+  border-top: none; 
+}
+
+#messageInput {
+  flex: 1;
+  padding: 4px 6px;
+  background: transparent;
+  /* PUNTO 3: Eliminazione bordi e stroke al click */
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  
+  color: white;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 9px;
+  width: 100%;
+  pointer-events: auto;
+  caret-color: white;
+  position: relative;
+}
+
+#messageInput::placeholder {
+  color: transparent;
+}
+
+
+/* Nasconde il cursore simulato quando scrivi */
+#messageInput:focus ~ .message-input-container::after,
+.message-input-container.has-text::after {
+  display: none;
+}
+
+
+/* Assicura che non ci sia nessun highlight blu su mobile/electron */
+input, textarea, button, select {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
