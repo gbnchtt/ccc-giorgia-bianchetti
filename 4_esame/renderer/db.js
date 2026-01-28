@@ -1,7 +1,7 @@
 (function () {
   // --- CONFIGURAZIONE ---
-  let yourID = 2;
-  let friendID = 8;
+  let yourID = 8;
+  let friendID = 2;
   let table = "students";
 
   // --- DATI SENSORI ---
@@ -53,6 +53,7 @@
     if (r4) {
         r4.style.display = 'block';
         r4.src = r4.dataset.originalSrc || r4.src;
+        // Mantiene la dimensione originale del raggio 4
         r4.style.transform = 'translate(-50%, -50%) scale(1)';
     }
   }
@@ -61,14 +62,20 @@
     const r4 = document.querySelector('.svg-container img:nth-child(4)');
     if (!r4) return;
     if (!r4.dataset.originalSrc) r4.dataset.originalSrc = r4.src;
-    const svgCircle = `<svg width="50" height="50" xmlns="http://www.w3.org/2000/svg"><circle cx="25" cy="25" r="20" fill="white" stroke="white" stroke-width="2"/></svg>`;
+
+    // MODIFICA: r="10" rende il cerchio la metà della dimensione precedente (che era 20)
+    const svgCircle = `<svg width="50" height="50" xmlns="http://www.w3.org/2000/svg"><circle cx="25" cy="25" r="5" fill="white" stroke="white" stroke-width="2"/></svg>`;
+    
     r4.src = 'data:image/svg+xml;base64,' + btoa(svgCircle);
+    r4.style.transform = 'translate(-50%, -50%) scale(1)';
+
     if (pulsing) {
       isUserSpeaking = true;
       let time = 0;
       const animate = () => {
         if (!isUserSpeaking) return;
         time += 0.05;
+        // La pulsazione agisce sull'intero elemento r4 partendo dalla scala 1
         let scale = 1 + Math.sin(time) * 0.15;
         r4.style.transform = `translate(-50%, -50%) scale(${scale})`;
         pulsingAnimationId = requestAnimationFrame(animate);
@@ -107,11 +114,10 @@
 
   // --- CONTROLLO RAGGI ---
 
-  // RAGGIO 1: UPTIME (Finestra 24h 20m - 24h 40m)
   function controlRaggio1Animation() {
     const upSeconds = personalUptime;
-    const minSblocco = (24 * 3600) + (40 * 60); 
-    const maxSblocco = (24 * 3600) + (80 * 60); 
+    const minSblocco = (24 * 3600) + (20 * 60); 
+    const maxSblocco = (24 * 3600) + (40 * 60); 
     const el = document.querySelector('.svg-container img:first-child');
     if (!el) return;
 
@@ -132,7 +138,7 @@
       if (raggio1Stopped || communicationUnlocked) { raggio1Stopped = false; updateUIState(); }
       const animate = () => {
         if (communicationUnlocked) return;
-        let speed = 0.8; // Velocità costante per gestire uptime elevati
+        let speed = 0.8;
         raggio1Rotation -= speed;
         el.style.transform = `translate(-50%, -50%) rotate(${raggio1Rotation}deg)`;
         if (personalUptime < minSblocco || personalUptime > maxSblocco) raggio1AnimationId = requestAnimationFrame(animate);
@@ -141,7 +147,6 @@
     }
   }
 
-  // RAGGIO 2: MOUSE (Primo terzo dello schermo - Orario)
   function controlRaggio2Animation() {
     const sectionWidth = screenWidth / 3;
     const el = document.querySelector('.svg-container img:nth-child(2)');
@@ -172,7 +177,6 @@
     }
   }
 
-  // RAGGIO 3: BATTERIA (Sblocco > 87%)
   function controlRaggio3Animation() {
     const battery = parseFloat(personalBattery);
     const el = document.querySelector('.svg-container img:nth-child(3)');
@@ -195,7 +199,6 @@
       if (raggio3Stopped || communicationUnlocked) { raggio3Stopped = false; updateUIState(); }
       const animate = () => {
         if (communicationUnlocked) return;
-        // Velocità limitata per evitare rotazioni eccessive a basse percentuali
         let calcSpeed = 0.5 + ((87 - battery) / 20);
         let speed = Math.min(calcSpeed, 2.0); 
         raggio3Rotation -= speed;

@@ -1,6 +1,6 @@
 // === CONFIG ELEVEN LABS ===
 const ELEVEN_API_KEY = "860242fbcb81aa8771713b82e605e559651e139f77a0e4fedf2dc84c3177f452";
-const ELEVEN_VOICE_ID = "V8enPTWsjJLB0QHXJDFj";
+const ELEVEN_VOICE_ID = "S2m7LkRaXbDi2B6ErRrA";
 // Aggiunta la gestione della velocità tramite il parametro "speed" nell'URL
 const ELEVEN_URL = `https://api.elevenlabs.io/v1/text-to-speech/${ELEVEN_VOICE_ID}?output_format=mp3_44100_128`;
 
@@ -30,11 +30,11 @@ async function speakMessage(text) {
         text: text,
         model_id: 'eleven_multilingual_v2', 
         voice_settings: {
-          stability: 0.54,          // Impostata al 54%
-          similarity_boost: 0.95,   // Impostata al 95%
-          style: 0.0,               // Impostata a 0%
+          stability: 0.50,          // Impostata al 54%
+          similarity_boost: 0.79,   // Impostata al 95%
+          style: 0.14,               // Impostata a 0%
           use_speaker_boost: true,  // Attivato per migliorare la fedeltà del clone
-          speed: 0.96               // Velocità impostata a 0.96
+          speed: 0.85               // Velocità impostata a 0.96
         }
       })
     });
@@ -157,3 +157,4 @@ if (document.readyState === 'loading') {
 } else {
   setupAutoSendOnKeyword();
 }
+
